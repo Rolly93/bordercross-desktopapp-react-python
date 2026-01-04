@@ -1,3 +1,4 @@
+
 # -------------------------------------------------------------------
 # 1. GENERAL OPERATING SYSTEM & EDITOR IGNORES
 # -------------------------------------------------------------------
@@ -8,6 +9,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 */.git/*
+.venv/
+.vscode/
+*.db
 
 # VS Code
 .vscode/*
@@ -15,9 +19,10 @@ yarn-error.log*
 # -------------------------------------------------------------------
 # 2. PYTHON (FastAPI & Pywebview Backend)
 # -------------------------------------------------------------------
-
+repo_github/*
 # Byte-compiled / optimized / setuptools files
 *__pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 __pycache__/*
@@ -30,10 +35,16 @@ __pycache__/*
 *.egg-info/
 *.egg
 .venv
-
+/Visual_Studio_code/*
 # Installer logs
 */pip-log.txt
+logistica.db
 
+__pycache__/
+*.pyc
+node_modules/
+.env
+*/
 # Virtual environment
 # The standard virtual environment name
 */venv/*
