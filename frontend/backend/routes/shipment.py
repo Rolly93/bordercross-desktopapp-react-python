@@ -41,6 +41,6 @@ def updateShipment():
         flash("¡Cambios aplicados!", "success")
         return jsonify({"status": "success", 
                         "action": "redirect",
-                        "url": "/dashboard"}), 200
+                        "url": url_for('dashboard_bp.dashboard')}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500

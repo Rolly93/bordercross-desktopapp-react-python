@@ -1,8 +1,12 @@
 import os
+
+import paramiko
+import io
 from xml.dom import minidom
 from .shipment_logic import type_event , time_format
 import time
 import backend.exception.exceptions as DuplicatedEventError
+
 def eventcreador(event):
     """funccion para reorganizar los eventos y enviar eventos de exportacion via sftp
     """
@@ -51,13 +55,11 @@ def export_to_xml(event):
         
         fullpath = os.path.join(savapath, filename) 
 
-        
-        
-   
         with open(fullpath, 'wb') as f:
             f.write(xml_str)
             f.close()
-    sent_Sftp_file(event, fullpath)
+        sent_Sftp_file( fullpath,filename)
+
     except Exception as e:
         raise e
     
@@ -74,3 +76,30 @@ def isduplicate(event_prefix):
             return True
             
     return False
+
+
+def sent_Sftp_file( fullpath,filename):
+
+    host = 'localhost'
+    port = 2222
+    username = 'tester'
+    password = 'password'
+
+
+    file_path = fullpath
+
+    try:
+
+        transport = paramiko.Transport((host, port ))
+        transport.connect(username=username, password=password)    
+
+        remote_path = f"./events/{filename}"
+
+        sftp = paramiko.SFTPClient.from_transport(transport)
+        sftp.put(file_path,remote_path)
+        sftp.close()
+        print("File uploaded successfully.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+            transport.close()
